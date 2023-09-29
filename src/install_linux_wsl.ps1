@@ -21,6 +21,11 @@ $MAX_STRING_LENGTH = 48
 function Resolve-Backup-Path {
     try {
         $ParrentPath = $(Split-Path $InstallPath)
+        if (-Not (Test-Path $ParrentPath)) {
+            Write-Host "To install to `"$InstallPath`", `"$ParrentPath`" must exist!" -ForegroundColor $ERROR_MSG_COLOR
+            Exit 1
+        }
+
         if ($ParrentPath[-1] -eq "\") {
             $BackupPath = "${ParrentPath}backup"
         }
@@ -72,7 +77,7 @@ function Write-Command-Status {
     }
     else {
         try {
-            Invoke-Expression $Command | Out-Null
+#            Invoke-Expression $Command | Out-Null
             Write-Host "<OK> " -ForegroundColor $SUCCESS_COLOR -NoNewline
             Write-Host "====" -ForegroundColor $MAIN_COLOR
         }
