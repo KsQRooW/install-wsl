@@ -23,7 +23,7 @@
 ## Preparing Windows Components
 
 ```powershell
-~\Easy-Install-WSL-Linux\src\prepare_win_components.ps1  # (1)!
+.\Easy-Install-WSL-Linux\src\prepare_win_components.ps1  # (1)!
 ```
 
 1. This PowerShell script will activate [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and [Virtual Machine Platform](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)
@@ -35,7 +35,7 @@
 ## Installing Linux
 
 ```powershell title="Installing Ubuntu in directory E:\Ubuntu"
-~\Easy-Install-WSL-Linux\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
+.\Easy-Install-WSL-Linux\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
 ```
 
 | Param                   |      Required      |     Default      |                Description |
