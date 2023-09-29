@@ -88,6 +88,7 @@ function Write-Command-Status {
 $BackupPath = Resolve-Backup-Path
 
 Write-Host "$("=" * 19) Install Linux with WSL 2 $("=" * 19)" -ForegroundColor $MAIN_COLOR
+Write-Command-Status -Command "wsl --update" -MainColoredDescription "Updating WSL"
 Write-Command-Status -Command "wsl --set-default-version 2" -MainColoredDescription "Activating WSL2"
 Write-Command-Status -Command "wsl --install $Distribution -n" -MainColoredDescription "Downloading" -SpecialColoredDescription $Distribution -Skip $($(wsl --list --quiet) -contains $Distribution)
 Write-Command-Status -Command "Start-Process powershell.exe -ArgumentList `"-NoExit wsl --install $Distribution`"" -MainColoredDescription "Installing" -SpecialColoredDescription $Distribution
