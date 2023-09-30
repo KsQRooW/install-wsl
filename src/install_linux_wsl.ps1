@@ -21,6 +21,11 @@ $MAX_STRING_LENGTH = 48
 function Resolve-Backup-Path {
     try {
         $ParrentPath = $(Split-Path $InstallPath)
+        if (-Not (Test-Path $ParrentPath)) {
+            Write-Host "To install to `"$InstallPath`", `"$ParrentPath`" must exist!" -ForegroundColor $ERROR_MSG_COLOR
+            Exit 1
+        }
+
         if ($ParrentPath[-1] -eq "\") {
             $BackupPath = "${ParrentPath}backup"
         }
@@ -88,11 +93,15 @@ function Write-Command-Status {
 $BackupPath = Resolve-Backup-Path
 
 Write-Host "$("=" * 19) Install Linux with WSL 2 $("=" * 19)" -ForegroundColor $MAIN_COLOR
+Write-Command-Status -Command "wsl --update" -MainColoredDescription "Updating WSL"
 Write-Command-Status -Command "wsl --set-default-version 2" -MainColoredDescription "Activating WSL2"
 Write-Command-Status -Command "wsl --install $Distribution -n" -MainColoredDescription "Downloading" -SpecialColoredDescription $Distribution -Skip $($(wsl --list --quiet) -contains $Distribution)
-Write-Command-Status -Command "Start-Process powershell.exe -ArgumentList `"-NoExit wsl --install $Distribution`"" -MainColoredDescription "Installing" -SpecialColoredDescription $Distribution
+Write-Command-Status -Command "Start-Process powershell.exe -ArgumentList `"-NoExit wsl --install $Distribution`"" -MainColoredDescription "Start installing" -SpecialColoredDescription $Distribution
 Write-Host $("=" * 64) -ForegroundColor $MAIN_COLOR
 
+Write-Host "Now the " -ForegroundColor $SCRIPT_INFO_COLOR -NoNewline
+Write-Host "$Distribution " -ForegroundColor $SPECIAL_COLOR -NoNewline
+Write-Host "installation will open in a new window." -ForegroundColor $SCRIPT_INFO_COLOR
 Write-Host "After installation - setup " -ForegroundColor $SCRIPT_INFO_COLOR -NoNewline
 Write-Host "USERNAME " -ForegroundColor $SPECIAL_COLOR -NoNewline
 Write-Host "and " -ForegroundColor $SCRIPT_INFO_COLOR -NoNewline
@@ -112,11 +121,12 @@ Write-Host $("=" * 64) -ForegroundColor $MAIN_COLOR
 Write-Command-Status -Command "wsl --shutdown" -MainColoredDescription "Shutdown WSL2"
 Write-Command-Status -Command "New-Item -Path `"$BackupPath`" -ItemType Directory; wsl --export $Distribution `"$BackupPath\${Distribution}.tar`"" -MainColoredDescription "Backuping to" -SpecialColoredDescription $BackupPath
 Write-Command-Status -Command "wsl --unregister $Distribution" -MainColoredDescription "Unregistering old distribution path"
-Write-Command-Status -Command "New-Item -Path `"$InstallPath`" -ItemType Directory" -MainColoredDescription "Create directory:" -SpecialColoredDescription $InstallPath -Skip $(Test-Path $InstallPath)
+Write-Command-Status -Command "New-Item -Path `"$InstallPath`" -ItemType Directory" -MainColoredDescription "Create directory" -SpecialColoredDescription $InstallPath -Skip $(Test-Path $InstallPath)
 Write-Command-Status -Command "wsl --import $Distribution `"$InstallPath`" `"$BackupPath\${Distribution}.tar`"" -MainColoredDescription "Registering new distribution path"
 Write-Command-Status -Command "Remove-Item -Path `"$BackupPath`" -Recurse" -MainColoredDescription "Remove" -SpecialColoredDescription $BackupPath
 
 if ($Distribution -eq "Ubuntu") {
+    Write-Host $("=" * 64) -ForegroundColor $MAIN_COLOR
     Write-Host "Do you want to set a default user other than root? " -ForegroundColor $SCRIPT_INFO_COLOR -NoNewline
     Write-Host "[Y\n]" -ForegroundColor $SPECIAL_COLOR -NoNewline
     Write-Host ": " -ForegroundColor $SCRIPT_INFO_COLOR -NoNewline
@@ -130,6 +140,7 @@ if ($Distribution -eq "Ubuntu") {
         $DefaultUsername = Read-Host
         ubuntu config --default-user $DefaultUsername
     }
+    Write-Host $("=" * 64) -ForegroundColor $MAIN_COLOR
     Write-Command-Status -Command "Start-Process ubuntu" -MainColoredDescription "Starting" -SpecialColoredDescription "Ubuntu"
 }
 else {

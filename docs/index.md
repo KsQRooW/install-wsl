@@ -22,8 +22,23 @@
 
 ## Preparing Windows Components
 
+!!! warning "Before run scripts"
+    
+    By default, Windows tries to protect you from calling any PowerShell scripts, because Windows ethos doesn't allow normal users to use scripts.
+
+    But in this case, all the functionality is written in PowerShell and you need to run these scripts...
+    
+    <div class="annotate" markdown>
+    1. Therefore, open PowerShell as administrator </br>
+    2. Execute `Set-ExecutionPolicy Unrestricted` (1)
+    </div>
+    
+    1. If you are very worried, then after installing the Linux distribution (after calling `install_linux_wsl.ps1`), you can roll back the `ExecutionPolicy` on your system.
+        1. Open PowerShell as administrator
+        2. Execute `Set-ExecutionPolicy Default`
+
 ```powershell
-~\Easy-Install-WSL-Linux\src\prepare_win_components.ps1  # (1)!
+.\Easy-Install-WSL-Linux\src\prepare_win_components.ps1  # (1)!
 ```
 
 1. This PowerShell script will activate [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and [Virtual Machine Platform](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)
@@ -35,7 +50,7 @@
 ## Installing Linux
 
 ```powershell title="Installing Ubuntu in directory E:\Ubuntu"
-~\Easy-Install-WSL-Linux\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
+.\Easy-Install-WSL-Linux\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
 ```
 
 | Param                   |      Required      |     Default      |                Description |

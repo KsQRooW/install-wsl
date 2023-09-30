@@ -7,6 +7,16 @@ $ERROR_MSG_COLOR = "Red"
 
 $MoveLinuxWSLScriptFile = "install_linux_wsl.ps1"
 
+
+function Assert-Script-Executed-By-Administrator {
+    $СurrentUser = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+    $RunnedAsAdmin = $СurrentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    if (-Not $RunnedAsAdmin) {
+        Write-Host "Run the script as administrator!" -ForegroundColor $ERROR_MSG_COLOR
+        Exit 1
+    }
+}
+
 function Write-Command-Status {
     Param(
         $Command,
@@ -38,6 +48,8 @@ function Search-Move-Linux-WSL-File {
     return $MoveLinuxWSLScriptFilePath
 }
 
+
+Assert-Script-Executed-By-Administrator
 $MoveLinuxWSLScriptFilePath = Search-Move-Linux-WSL-File
 
 Write-Host "====== Activating Windows Components ======" -ForegroundColor $MAIN_COLOR
