@@ -3,19 +3,19 @@
 === "https"
 
     ```
-    git clone https://github.com/KsQRooW/Easy-Install-WSL-Linux.git
+    git clone https://github.com/KsQRooW/install-wsl.git
     ```
 
 === "ssh"
 
     ```
-    git@github.com:KsQRooW/Easy-Install-WSL-Linux.git
+    git@github.com:KsQRooW/install-wsl.git
     ```
 
 === "GitHub CLI"
 
     ```
-    gh repo clone KsQRooW/Easy-Install-WSL-Linux
+    gh repo clone KsQRooW/install-wsl
     ```
 ??? note
     If for some reason you cannot use git, then you can simply download the [.zip archive](https://github.com/KsQRooW/Easy-Install-WSL-Linux/archive/refs/heads/main.zip) and unzip it.
@@ -38,7 +38,7 @@
         2. Execute `Set-ExecutionPolicy Default`
 
 ```powershell
-.\Easy-Install-WSL-Linux\src\prepare_win_components.ps1  # (1)!
+.\install-wsl\src\prepare_win_components.ps1  # (1)!
 ```
 
 1. This PowerShell script will activate [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and [Virtual Machine Platform](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)
@@ -50,7 +50,7 @@
 ## Installing Linux
 
 ```powershell title="Installing Ubuntu in directory E:\Ubuntu"
-.\Easy-Install-WSL-Linux\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
+.\install-wsl\src\install_linux_wsl.ps1 -Path E:\Ubuntu -Dist Ubuntu
 ```
 
 | Param                   |      Required      |     Default      |                Description |
