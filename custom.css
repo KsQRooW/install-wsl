@@ -1,0 +1,19 @@
+:root {
+  --custom-orange: #b75745;
+  --custom-blue-dark: #1a5170;
+  --custom-blue: #4183a6;
+}
+
+[data-md-color-scheme="custom-color"] {
+  --md-primary-fg-color: var(--custom-blue);
+  --md-typeset-a-color: var(--custom-blue-dark);
+  --md-accent-fg-color: var(--custom-orange);
+}
+
+.md-typeset__table {
+   min-width: 100%;
+}
+
+.md-typeset table:not([class]) {
+    display: table;
+}
