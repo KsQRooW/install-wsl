@@ -1,7 +1,7 @@
-# Easy-Install-WSL-Linux
+# Install-WSL
 Easy installation of Linux on Windows with WSL
 
-Docs - https://ksqroow.github.io/Easy-Install-WSL-Linux/
+Docs - https://ksqroow.github.io/install-wsl/
 
 ##  Supported Distributions
 
