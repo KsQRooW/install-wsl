@@ -1,7 +1,7 @@
-site_name: Easy Install WSL Linux
+site_name: Install WSL
 
-repo_name: Easy-Install-WSL-Linux
-repo_url: https://github.com/KsQRooW/Easy-Install-WSL-Linux
+repo_name: install-wsl
+repo_url: https://github.com/KsQRooW/install-wsl
 edit_uri: ''
 
 theme:
